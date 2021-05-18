@@ -1,25 +1,48 @@
-fun main(){
+fun main() {
+    var i = 0
+    while (i < 5) {
+        
+        val titular: String = "Carlos $i"
+        val numeroConta: Int = 1000 + i
+        var saldo: Double = i + 10.0
 
-    val titular: String = "Carlos"
-    val numeroConta: Int = 1000
-    var saldo: Double = 0.0
+        println("Titular: $titular")
+        println("Número da conta: $numeroConta")
+        println("Saldo: $saldo")
 
-//    saldo = 100.0
-//
-//    saldo += + 200
-    saldo = -1.0
+        println()
+        i++
+    }
+//    testConditions(saldo)
+    testLoops()
 
-    println("Titular: $titular")
-    println("Número da conta: $numeroConta")
-    println("Saldo: $saldo")
+}
 
+fun testConditions(saldo: Double) {
     when {
         saldo > 0.0 -> println("Conta positiva")
         saldo == 0.0 -> println("conta zerada")
         else -> println("conta negativa")
     }
-
-
-
 }
 
+fun testLoops() {
+    for (i in 1..5) {
+        println(i)
+    }
+
+    for (i in 5 downTo 1 step 1) {
+        if (i == 4) {
+            continue
+        }
+        val titular: String = "Carlos $i"
+        val numeroConta: Int = 1000 + i
+        var saldo: Double = i + 10.0
+
+        println("Titular: $titular")
+        println("Número da conta: $numeroConta")
+        println("Saldo: $saldo")
+
+        println()
+    }
+}
