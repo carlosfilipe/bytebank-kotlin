@@ -1,25 +1,72 @@
 fun main() {
     println("Bem vindo ao Bytebank!")
-    
+    val contaAlex = Account("Alex", 1001)
+    contaAlex.deposit(-200.0)
+
+    println("${contaAlex.saldo}")
+
+
+    val contaJoana = Account(numero = 1002, titular = "Joana") // também pode ser assim, trocando a ordem das chamadas
+    contaJoana.deposit(100.0)
+
+    println("saldo da conta da Joana: ${contaJoana.saldo}")
+
+    if (contaAlex.transfer(250.0, contaJoana)) {
+        println("transferencia feita com sucesso")
+    } else {
+        println("falha na transferencia")
+    }
+
+    println("saldo da conta da Alex: ${contaAlex.saldo}")
+    println("saldo da conta da Joana: ${contaJoana.saldo}")
+
 
 }
 
-class Account {
-    var titular = ""
-    var numero = 0
+class Account(
+    var titular: String,
+    val numero: Int = 0 // valor default
+) {
+
     var saldo = 0.0
+        private set
+
+    fun deposit(ammount: Double) {
+        if (ammount > 0) this.saldo += ammount
+    }
+
+    fun withdraw(ammount: Double) {
+        if (this.saldo >= ammount) {
+            this.saldo -= ammount
+        } else {
+            println("Saldo insuficiente")
+        }
+    }
+
+    fun transfer(ammount: Double, destinationAccount: Account): Boolean {
+        if (saldo >= ammount) {
+            saldo -= ammount
+            destinationAccount.deposit(ammount)
+
+            return true
+        }
+        println("Saldo insuficiente")
+        return false
+    }
+
+
 }
 
 fun testCopyAndReference() {
-    val contaAlex = Account()
-    contaAlex.titular = "Alex"
-    contaAlex.numero= 1000
-    contaAlex.saldo = 200.0
-
-    val contaFran = Account()
-    contaFran.titular = "Fran"
-    contaFran.numero= 1001
-    contaFran.saldo = 300.0
+//    val contaAlex = Account()
+//    contaAlex.titular = "Alex"
+//    contaAlex.numero = 1000
+//    contaAlex.deposit(200.0)
+//
+//    val contaFran = Account()
+//    contaFran.titular = "Fran"
+//    contaFran.numero = 1001
+//    contaFran.saldo = 300.0
 
 //    println(contaAlex.titular)
 //    println(contaAlex.numero)
@@ -30,19 +77,19 @@ fun testCopyAndReference() {
 //    println(contaFran.saldo)
 
 
-    val numX = 10
-    var numY = numX
-    numY++
-
-    println("$numX $numY")
-
-    val contaJoao = Account()
-    contaJoao.titular = "Joao"
-
-    var contaMaria = Account()
-    contaMaria.titular = "Maria"
-
-    println("${contaJoao} - ${contaMaria}")
+//    val numX = 10
+//    var numY = numX
+//    numY++
+//
+//    println("$numX $numY")
+//
+//    val contaJoao = Account()
+//    contaJoao.titular = "Joao"
+//
+//    var contaMaria = Account()
+//    contaMaria.titular = "Maria"
+//
+//    println("${contaJoao} - ${contaMaria}")
 
 }
 
