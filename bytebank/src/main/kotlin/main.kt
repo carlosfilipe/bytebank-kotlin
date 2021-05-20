@@ -1,141 +1,61 @@
 fun main() {
-    println("Bem vindo ao Bytebank!")
-    val contaAlex = Account("Alex", 1001)
-    contaAlex.deposit(-200.0)
+    val alex = Employee(
+        name = "Alex",
+        cpf = "sdfsd",
+        salary = 1000.0
+    )
 
-    println("${contaAlex.saldo}")
+    println("nome ${alex.name}")
+    println("cpf ${alex.cpf}")
+    println("salario ${alex.salary}")
+    println("Bonificação: ${alex.bonification()}")
 
+    val gerente = Manager(
+        name = "Alex",
+        cpf = "sdfsd",
+        salary = 1000.0,
+        senha = 3
+    )
+    println()
 
-    val contaJoana = Account(numero = 1002, titular = "Joana") // também pode ser assim, trocando a ordem das chamadas
-    contaJoana.deposit(100.0)
+    println("Gerente")
+    println("nome ${gerente.name}")
+    println("cpf ${gerente.cpf}")
+    println("salario ${gerente.salary}")
+    println("Bonificação: ${gerente.bonification()}")
 
-    println("saldo da conta da Joana: ${contaJoana.saldo}")
-
-    if (contaAlex.transfer(250.0, contaJoana)) {
-        println("transferencia feita com sucesso")
+    if (gerente.autentica(3)) {
+        println("autenteicado com sucess")
     } else {
-        println("falha na transferencia")
+        print("falha")
     }
 
-    println("saldo da conta da Alex: ${contaAlex.saldo}")
-    println("saldo da conta da Joana: ${contaJoana.saldo}")
 
+    val gui = Director(
+        name = "Gui",
+        cpf = "0000",
+        salary = 4000.0,
+        senha = 400,
+        plr = 200.0
+    )
 
-}
+    println()
+    println("Diretor")
+    println("nome ${gui.name}")
+    println("cpf ${gui.cpf}")
+    println("salario ${gui.salary}")
+    println("Bonificação: ${gui.bonification()}")
+    println("PLR: ${gui.plr}")
 
-class Account(
-    var titular: String,
-    val numero: Int = 0 // valor default
-) {
-
-    var saldo = 0.0
-        private set
-
-    fun deposit(ammount: Double) {
-        if (ammount > 0) this.saldo += ammount
-    }
-
-    fun withdraw(ammount: Double) {
-        if (this.saldo >= ammount) {
-            this.saldo -= ammount
-        } else {
-            println("Saldo insuficiente")
-        }
-    }
-
-    fun transfer(ammount: Double, destinationAccount: Account): Boolean {
-        if (saldo >= ammount) {
-            saldo -= ammount
-            destinationAccount.deposit(ammount)
-
-            return true
-        }
-        println("Saldo insuficiente")
-        return false
+    if (gui.autentica(400)) {
+        println("autenteicado com sucess")
+    } else {
+        print("falha")
     }
 
 
 }
 
-fun testCopyAndReference() {
-//    val contaAlex = Account()
-//    contaAlex.titular = "Alex"
-//    contaAlex.numero = 1000
-//    contaAlex.deposit(200.0)
-//
-//    val contaFran = Account()
-//    contaFran.titular = "Fran"
-//    contaFran.numero = 1001
-//    contaFran.saldo = 300.0
-
-//    println(contaAlex.titular)
-//    println(contaAlex.numero)
-//    println(contaAlex.saldo)
-//
-//    println(contaFran.titular)
-//    println(contaFran.numero)
-//    println(contaFran.saldo)
 
 
-//    val numX = 10
-//    var numY = numX
-//    numY++
-//
-//    println("$numX $numY")
-//
-//    val contaJoao = Account()
-//    contaJoao.titular = "Joao"
-//
-//    var contaMaria = Account()
-//    contaMaria.titular = "Maria"
-//
-//    println("${contaJoao} - ${contaMaria}")
 
-}
-
-fun testConditions(saldo: Double) {
-    when {
-        saldo > 0.0 -> println("Conta positiva")
-        saldo == 0.0 -> println("conta zerada")
-        else -> println("conta negativa")
-    }
-}
-
-
-fun testLoops() {
-    for (i in 1..5) {
-        println(i)
-    }
-
-    for (i in 5 downTo 1 step 1) {
-        if (i == 4) {
-            continue
-        }
-        val titular: String = "Carlos $i"
-        val numeroConta: Int = 1000 + i
-        var saldo: Double = i + 10.0
-
-        println("Titular: $titular")
-        println("Número da conta: $numeroConta")
-        println("Saldo: $saldo")
-
-        println()
-    }
-
-    var i = 0
-    while (i < 5) {
-
-        val titular: String = "Carlos $i"
-        val numeroConta: Int = 1000 + i
-        var saldo: Double = i + 10.0
-
-        println("Titular: $titular")
-        println("Número da conta: $numeroConta")
-        println("Saldo: $saldo")
-
-        println()
-        i++
-    }
-//    testConditions(saldo)
-
-}
